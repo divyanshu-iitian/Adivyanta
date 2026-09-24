@@ -1,0 +1,8 @@
+{
+  "prompts": 40,
+  "routes": {
+    "curated": 26,
+    "adapter": 10,
+    "base": 4
+  }
+}

@@ -1,0 +1,8 @@
+{
+  "step": 14000,
+  "val_loss": 3.5188480615615845,
+  "best_val_loss": 3.5010581016540527,
+  "elapsed_seconds": 230,
+  "parameters": 9708672,
+  "device": "cuda"
+}

@@ -1,0 +1,9 @@
+.venv/
+data/
+checkpoints/*
+!checkpoints/best.pt
+!checkpoints/evaluation.json
+!checkpoints/metrics.json
+__pycache__/
+*.pyc
+*_run.log

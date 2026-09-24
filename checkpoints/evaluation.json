@@ -1,0 +1,6 @@
+{
+  "checkpoint_step": 10000,
+  "test_examples": 8401,
+  "response_token_loss": 3.675,
+  "perplexity": 39.45
+}

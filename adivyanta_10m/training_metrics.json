@@ -1,0 +1,50 @@
+{
+  "base_checkpoint_step": 10000,
+  "train_examples": 292,
+  "valid_examples": 36,
+  "base_roast_validation_loss": 5.2365,
+  "evaluations": [
+    {
+      "step": 50,
+      "train_batch_loss": 2.4562,
+      "roast_validation_loss": 4.4431
+    },
+    {
+      "step": 100,
+      "train_batch_loss": 3.423,
+      "roast_validation_loss": 4.5381
+    },
+    {
+      "step": 150,
+      "train_batch_loss": 0.8357,
+      "roast_validation_loss": 4.5796
+    },
+    {
+      "step": 200,
+      "train_batch_loss": 0.5702,
+      "roast_validation_loss": 4.5716
+    },
+    {
+      "step": 250,
+      "train_batch_loss": 0.3291,
+      "roast_validation_loss": 4.629
+    },
+    {
+      "step": 300,
+      "train_batch_loss": 3.8674,
+      "roast_validation_loss": 4.6516
+    },
+    {
+      "step": 350,
+      "train_batch_loss": 0.1836,
+      "roast_validation_loss": 4.7626
+    },
+    {
+      "step": 400,
+      "train_batch_loss": 0.117,
+      "roast_validation_loss": 4.7131
+    }
+  ],
+  "best_step": 50,
+  "best_roast_validation_loss": 4.4431
+}

@@ -1,0 +1,36 @@
+{
+  "roast_prompts": 36,
+  "control_prompts": 4,
+  "metrics": {
+    "original_10m": {
+      "nonempty": 36,
+      "one_line_30_words_or_less": 36,
+      "second_person_opening": 5,
+      "disclaimer_phrase": 0
+    },
+    "adivyanta_10m": {
+      "nonempty": 36,
+      "one_line_30_words_or_less": 36,
+      "second_person_opening": 35,
+      "disclaimer_phrase": 0
+    },
+    "base_360m": {
+      "nonempty": 36,
+      "one_line_30_words_or_less": 33,
+      "second_person_opening": 3,
+      "disclaimer_phrase": 19
+    },
+    "adivyanta_360m": {
+      "nonempty": 36,
+      "one_line_30_words_or_less": 36,
+      "second_person_opening": 33,
+      "disclaimer_phrase": 1
+    },
+    "qwen_05b": {
+      "nonempty": 36,
+      "one_line_30_words_or_less": 33,
+      "second_person_opening": 0,
+      "disclaimer_phrase": 0
+    }
+  }
+}

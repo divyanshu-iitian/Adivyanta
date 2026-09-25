@@ -1,0 +1,63 @@
+{
+  "starting_checkpoint_step": 12000,
+  "chat_validation_examples": 100,
+  "base_chat_validation_loss": 4.5346,
+  "train_pools": {
+    "hinglish": 5687,
+    "oasst": 5798,
+    "aya_human": 24789,
+    "original": 15
+  },
+  "steps": [
+    {
+      "step": 250,
+      "chat_validation_loss": 4.4666
+    },
+    {
+      "step": 500,
+      "chat_validation_loss": 4.3982
+    },
+    {
+      "step": 750,
+      "chat_validation_loss": 4.308
+    },
+    {
+      "step": 1000,
+      "chat_validation_loss": 4.2511
+    },
+    {
+      "step": 1250,
+      "chat_validation_loss": 4.2139
+    },
+    {
+      "step": 1500,
+      "chat_validation_loss": 4.173
+    },
+    {
+      "step": 1750,
+      "chat_validation_loss": 4.1294
+    },
+    {
+      "step": 2000,
+      "chat_validation_loss": 4.088
+    },
+    {
+      "step": 2250,
+      "chat_validation_loss": 4.0524
+    },
+    {
+      "step": 2500,
+      "chat_validation_loss": 4.0387
+    },
+    {
+      "step": 2750,
+      "chat_validation_loss": 4.006
+    },
+    {
+      "step": 3000,
+      "chat_validation_loss": 3.9881
+    }
+  ],
+  "best_chat_step": 3000,
+  "best_chat_validation_loss": 3.9881
+}

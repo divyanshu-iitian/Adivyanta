@@ -1,0 +1,35 @@
+{
+  "original_splits": {
+    "train": 120449,
+    "valid": 1155,
+    "test": 1200
+  },
+  "eligible_extra_hindi": 154163,
+  "added": {
+    "aya_hindi_extra": 99937,
+    "ultrachat": 29818,
+    "gsm8k": 7244
+  },
+  "expanded_splits": {
+    "train": 254828,
+    "valid": 2460,
+    "test": 2515
+  },
+  "sources": {
+    "ultrachat": {
+      "repo": "HuggingFaceH4/ultrachat_200k",
+      "revision": "8049631c405ae6576f93f445c6b8166f76f5505a",
+      "license": "MIT"
+    },
+    "gsm8k": {
+      "repo": "openai/gsm8k",
+      "revision": "740312add88f781978c0658806c59bc2815b9866",
+      "license": "MIT"
+    },
+    "aya_hindi_extra": {
+      "repo": "CohereLabs/aya_collection_language_split",
+      "license": "Apache-2.0"
+    }
+  },
+  "tokenizer": "Existing 16,384-token Adivyanta Indic tokenizer; no pretrained tokenizer."
+}

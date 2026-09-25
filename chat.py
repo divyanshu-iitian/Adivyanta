@@ -74,11 +74,11 @@ def main():
 
 
 if __name__ == "__main__":
-    if "--scratch" in sys.argv or "--checkpoint" in sys.argv:
+    if "--scratch" in sys.argv:
         if "--scratch" in sys.argv:
             sys.argv.remove("--scratch")
         main()
     else:
-        from chat_adivyanta import main as adivyanta_main
+        from smart_chat import main as adivyanta_main
 
         adivyanta_main()

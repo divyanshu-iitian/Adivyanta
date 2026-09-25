@@ -1,0 +1,27 @@
+{
+  "starting_checkpoint_step": 6000,
+  "chat_validation_examples": 100,
+  "base_chat_validation_loss": 4.6512,
+  "train_pools": {
+    "hinglish": 5687,
+    "oasst": 5798,
+    "aya_human": 24789,
+    "original": 15
+  },
+  "steps": [
+    {
+      "step": 250,
+      "chat_validation_loss": 4.5708
+    },
+    {
+      "step": 500,
+      "chat_validation_loss": 4.4858
+    },
+    {
+      "step": 750,
+      "chat_validation_loss": 4.4233
+    }
+  ],
+  "best_chat_step": 750,
+  "best_chat_validation_loss": 4.4233
+}

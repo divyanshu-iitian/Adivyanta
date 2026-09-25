@@ -7,3 +7,7 @@ checkpoints/*
 __pycache__/
 *.pyc
 *_run.log
+adivyanta_indic/last.pt
+adivyanta_indic/**/last.pt
+adivyanta_indic/best.pt
+adivyanta_indic/chat_best.pt

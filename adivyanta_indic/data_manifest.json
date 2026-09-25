@@ -1,0 +1,34 @@
+{
+  "sources": {
+    "aya_human": 29964,
+    "aya_hindi": 50000,
+    "aya_english": 50000,
+    "oasst": 11451,
+    "hinglish": 5780,
+    "original": 16
+  },
+  "eligible_aya_rows": {
+    "human": 29964,
+    "hindi": 217780,
+    "english": 2099073
+  },
+  "splits": {
+    "train": 120449,
+    "valid": 1155,
+    "test": 1200
+  },
+  "vocab_size": 16384,
+  "licenses": {
+    "aya_collection": "Apache-2.0",
+    "oasst1": "Apache-2.0",
+    "hinglish_instruct_10k": "Apache-2.0",
+    "original": "original"
+  },
+  "dataset_revisions": {
+    "aya_human": "09069079fad96ad9c7f8781be8c1d70471dfa768",
+    "aya_hindi": "a3af2fde4b4cb5b2775830b11244a1a20b5f004f",
+    "aya_english": "a3af2fde4b4cb5b2775830b11244a1a20b5f004f",
+    "oasst": "fdf72ae0827c1cda404aff25b6603abec9e3399b",
+    "hinglish": "39686808306eb6d898c8f7e86dfa93549e4ef23b"
+  }
+}

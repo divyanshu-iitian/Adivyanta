@@ -41,6 +41,16 @@ class Memory:
             r"\s*([A-Za-z][A-Za-z -]{1,34})\s+is my\s+(?:gf|girlfriend)\s*[.!]?\s*",
             message, re.I,
         )
+        if not girlfriend:
+            girlfriend = re.search(
+                r"\b([A-Za-z]{2,25})\s+meri\s+(?:gf|girlfriend)\s+(?:ka\s+naam\s+)?hai\b",
+                message, re.I,
+            )
+        if not girlfriend:
+            girlfriend = re.search(
+                r"\bmeri\s+(?:gf|girlfriend)\s+ka\s+naam\s+(?:hai\s+)?([A-Za-z]{2,25})\b",
+                message, re.I,
+            )
         if girlfriend:
             self.data["facts"]["girlfriend"] = girlfriend.group(1).strip()
             changes.append("girlfriend")
@@ -109,6 +119,12 @@ class Memory:
         girlfriend = self.data["facts"].get("girlfriend")
         if girlfriend and re.search(r"\b(?:what(?:'s| is) my (?:gf|girlfriend)(?:'s name)?|who is my (?:gf|girlfriend)|meri (?:gf|girlfriend) ka naam kya|meri (?:gf|girlfriend) kaun)\b", q):
             return f"Tumne bataya tha ki {girlfriend} tumhari girlfriend hai."
+        person_query = re.search(r"\b(?:tum|kya tum)\s+([a-z]{2,25})\s+ko\s+(?:jante|jaante)\s+ho$|\bdo you know\s+([a-z]{2,25})$", q)
+        if person_query:
+            person = person_query.group(1) or person_query.group(2)
+            if girlfriend and person.casefold() == girlfriend.casefold():
+                return f"{girlfriend} ke baare mein bas tumne bataya hai ki woh tumhari girlfriend hai. Main unhe personally nahi janta."
+            return f"{person} ke baare mein tumne mujhe abhi kuch nahi bataya."
         return self.data["corrections"].get(q)
 
     def correct(self, question, answer):

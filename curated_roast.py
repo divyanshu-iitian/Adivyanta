@@ -61,3 +61,17 @@ def choose(prompt):
                 return ROMAN_HINDI[HINGLISH_MAP[topic]][0], topic
             return ENGLISH[topic][0], topic
     return None, None
+
+
+def choose_spicy(prompt):
+    """Profane, consent-based banter about habits; no claims about real people."""
+    p = prompt.casefold()
+    if re.search(r"\b(code|coding|bug|debug|program|script)\b", p):
+        return "Tera code itna chutiya hai ki debugger bhi bolta hai: bhai, pehle tu saans le."
+    if re.search(r"\b(padhai|exam|study|syllabus)\b", p):
+        return "Teri padhai ka scene dekhkar syllabus bhi bolta hai: saale, milne kab aayega?"
+    if re.search(r"\b(to-do|todo|tasks?|planning|plan)\b", p):
+        return "Teri to-do list badi zabardast hai; kaam karne ka plan bhi kabhi bana le, saale."
+    if re.search(r"\b(?:gaali|gali|gaaliya|galiya|roast)\b", p):
+        return "Saale, teri planning itni bakchodi hai ki kal bhi tujhe dekhkar postpone ho jata hai."
+    return None

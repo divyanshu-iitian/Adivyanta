@@ -8,7 +8,7 @@ import torch
 from tokenizers import Tokenizer
 
 from conversation_memory import DEFAULT_PATH, Memory
-from curated_roast import choose
+from curated_roast import choose, choose_spicy
 from grounded_tools import arithmetic_answer
 from model import GPT, GPTConfig
 
@@ -22,7 +22,7 @@ MODEL_CHOICES = (
     ROOT / "adivyanta_indic" / "chat_best.pt",
     CHECKPOINT,
 )
-ROAST_RE = re.compile(r"\b(roast\w*|make fun|joke about|mazaak|mazak|leg.pull|savage)\b", re.I)
+ROAST_RE = re.compile(r"\b(roast\w*|make fun|joke about|mazaak|mazak|leg.pull|savage|gaali|gali|gaaliya|galiya)\b", re.I)
 NO_ROAST_RE = re.compile(r"\b(?:don't|do not|no)\s+(?:(?:want|need)\s+)?(?:a\s+)?roast\b", re.I)
 SENSITIVE_RE = re.compile(r"\b(religion|religious|caste|race|ethnicity|disability|illness|disease|death)\b", re.I)
 HINGLISH_RE = re.compile(r"\b(?:kya|mera|meri|mujhe|tum|tumhe|kaise|kar|rahe|hai|hain|yaar|bhai|batao|karo|nahi|accha|achha|aaj|kal)\b", re.I)
@@ -38,8 +38,14 @@ def familiar_reply(message, memory):
         return "Tumse baat kar raha hoon. Batao, aaj kya chal raha hai?"
     if clean in {"samosa", "समोसा"}:
         return "Samosa! Hari chutney ke saath ya imli wali?"
-    if clean in {"what is your name", "what's your name", "whats your name", "your name", "tumhara naam kya hai", "aapka naam kya hai", "तुम्हारा नाम क्या है", "आपका नाम क्या है"}:
+    if clean in {"what is your name", "what's your name", "whats your name", "your name", "tumhara naam kya hai", "tera naam kya hai", "aapka naam kya hai", "apna naam batao", "तुम्हारा नाम क्या है", "आपका नाम क्या है"}:
         return "Mera naam Adivyanta hai."
+    if clean in {"gf kaise banaye", "girlfriend kaise banaye", "gf kaise banau", "how do i get a girlfriend"}:
+        return "Pehle dosti aur genuine baat-cheet se shuru karo. Samne wale ki choice aur boundaries respect karo; connection dono taraf se ho tabhi aage badho."
+    if clean in {"acha beta", "achha beta", "accha beta"}:
+        return "Ji boss 😄 Ab batao, kya scene hai?"
+    if re.search(r"\b(?:adivyanta|tu|tum|tera)\b.*\b(?:chutiya|bakwaas|bakwas|bewakoof|bekaar)\b", clean):
+        return "Haan bhai, meri bakwaas pakad li. Aaj chutiya jawab diya ho toh seedha bol—dobara sahi se try karta hoon."
     if clean in {"i love you", "love you", "mujhe tumse pyaar hai", "मुझे तुमसे प्यार है"}:
         return "Yeh sunkar achha laga! Main Adivyanta hoon; tumse baat karne ke liye yahan hoon."
     if clean in {"ha", "haan", "han", "yes", "yep", "ji"}:
@@ -76,12 +82,9 @@ def load_model(checkpoint=None, prefer_local=True):
 
 @torch.inference_mode()
 def generate(model, tok, memory, message, max_new_tokens=80, temperature=0.75, top_k=30, greedy=False):
-    history = memory.data["turns"][-4:]
-    pieces = ["<|bos|>"]
-    for turn in history:
-        pieces.append(("<|user|>" if turn["role"] == "user" else "<|assistant|>") + turn["content"])
-    pieces.append("<|user|>" + message + "<|assistant|>")
-    ids = tok.encode("".join(pieces), add_special_tokens=False).ids
+    # The released checkpoints were trained on one user/assistant pair, not
+    # concatenated conversations. Local facts are handled by Memory separately.
+    ids = tok.encode("<|bos|><|user|>" + message + "<|assistant|>", add_special_tokens=False).ids
     ids = ids[-(model.cfg.block_size - max_new_tokens):]
     prompt_len = len(ids)
     stop = {tok.token_to_id(s) for s in ("<|eos|>", "<|user|>", "<|assistant|>", "<|pad|>")}
@@ -129,8 +132,8 @@ def reply(model, tok, memory, message):
         answer = "Yaad rakh liya. /memory se dekh sakte ho."
     elif ROAST_RE.search(message) and not NO_ROAST_RE.search(message) and SENSITIVE_RE.search(message):
         answer = "Kisi habit ya hobby ka roast karte hain. Topic batao, ek playful line dunga."
-    elif ROAST_RE.search(message) and not NO_ROAST_RE.search(message) and choose(message)[0]:
-        answer = choose(message)[0]
+    elif ROAST_RE.search(message) and not NO_ROAST_RE.search(message):
+        answer = choose_spicy(message) or choose(message)[0] or "Bhai, kis cheez ka roast chahiye—coding, padhai, ya teri to-do list?"
     else:
         answer = generate(model, tok, memory, message)
     memory.add_turn("user", message)

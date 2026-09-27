@@ -1,0 +1,26 @@
+{
+  "version": "1.0.0",
+  "rows": 60,
+  "sha256_train": "3489c513947a221676bf1d6578db7a32a06b3d687c4a6c9a5043524ab8753a60",
+  "by_language": {
+    "hinglish": 41,
+    "eng": 16,
+    "hin": 3
+  },
+  "by_intent": {
+    "greeting": 4,
+    "smalltalk": 7,
+    "banter": 3,
+    "affection": 3,
+    "identity": 7,
+    "memory": 10,
+    "dating": 6,
+    "repair": 4,
+    "uncertainty": 2,
+    "roast": 7,
+    "basic_qa": 7
+  },
+  "source": "project-authored synthetic examples",
+  "license": "MIT",
+  "limitations": "Small style supplement; no independent test split or quality benchmark."
+}

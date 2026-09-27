@@ -83,6 +83,8 @@ The legacy test losses use the **same test set** for both checkpoints. ChatMix v
 
 A later [focused chat continuation trial](https://github.com/divyanshu-iitian/Adivyanta/blob/main/benchmarks/CHAT_FOCUS_TRIAL.md) made validation loss worse at every measured checkpoint through step 18,000, so its weights were not published as an upgrade. The current ChatMix v2 file remains the best selected checkpoint from these experiments, despite its poor raw replies.
 
+The project also publishes a separate [Dialogue Seed v1](https://huggingface.co/datasets/divyanshumishra/Adivyanta-Dialogue-Seed-v1) with 60 project-authored conversation and consensual roast examples. **None of the model files in this repository have been trained on that seed set.** Recent app fixes for memory, slang, and roast requests are code-level behavior and should not be counted as neural model gains.
+
 ## License and limitations
 
 The original code and these scratch Indic weights are MIT licensed; see `LICENSE`. The older 9.71M checkpoints from the GitHub project used Meta EmpatheticDialogues under CC BY-NC 4.0 and are **not included here**.

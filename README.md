@@ -29,11 +29,15 @@ The first 9.71M GPT can still be tried with `chat.py --scratch`. Its English-onl
 
 ### Memory and learning from corrections
 
-The interactive app saves explicit user facts, the last 40 turns, and corrections in `data/adivyanta_memory.json` on **your own computer**. The `data/` directory is excluded from Git. It remembers statements such as `my name is Divyanshu`, `mera naam Divyanshu hai`, `Adita is my gf`, `I prefer Hinglish`, and `remember that I like samosas`. Names and exact corrections are retrieved directly, so they persist after closing and reopening chat.
+The interactive app saves explicit user facts, the last 40 turns, and corrections in `data/adivyanta_memory.json` on **your own computer**. The `data/` directory is excluded from Git. It remembers statements such as `my name is Rohan`, `mera naam Rohan hai`, `Riya is my gf`, `I prefer Hinglish`, and `remember that I like samosas`. Names and exact corrections are retrieved directly, so they persist after closing and reopening chat.
 
 The app also evaluates simple arithmetic expressions exactly, for example `what is 23 * (4 + 2)?` → `138`. This answer comes from a small calculator, not from the GPT weights. Common openers such as `hi`, `samosa`, and `kya kar rahe ho` have authored replies. These grounded features reduce errors on supported requests; they do not solve general hallucination.
 
+The app recognizes more direct Hindi/Hinglish phrasing, such as `Riya meri gf ka naam hai`, `tum Riya ko jante ho?`, and `tera naam kya hai?`. It uses the local fact you supplied and does not claim to know Riya personally. On explicit requests such as `roast my code` or `gaali de`, it can give playful profane roasts. Casual messages are not treated as consent to roast. These are app responses, not evidence that the neural checkpoint learned the same behavior.
+
 When the ChatMix v2 checkpoint is present, the app uses it by default because its held-out response-token losses were lower than the previous chat checkpoint across English, Hindi, and Hinglish. If it is absent, the app uses the earlier conversational checkpoint for Roman Hindi and the expanded base checkpoint for English or Devanagari. All are this project's scratch weights. `--checkpoint` forces one chosen checkpoint, and a local personalized checkpoint takes priority if you explicitly trained it. Lower loss has **not** made free-form neural answers consistently coherent; the calculator, identity answers, and explicitly stored facts use separate app logic.
+
+The released checkpoints were trained on single user/assistant pairs. Neural generation now receives the current message only; earlier generated replies are no longer concatenated into an untrained multi-turn prompt. The app still stores up to 40 turns for local inspection, and explicit facts/corrections remain available through memory routing. Proper neural multi-turn context requires a separate training and evaluation run.
 
 Commands:
 
@@ -66,6 +70,8 @@ A second corpus build in [prepare_expanded_data.py](prepare_expanded_data.py) ad
 [DATASETS.md](DATASETS.md) records provenance, licenses, split handling, and the limits of this collection.
 
 A smaller, cleaner [Adivyanta ChatMix v2 dataset](https://huggingface.co/datasets/divyanshumishra/Adivyanta-ChatMix-v2) is now published separately. It is derived from the licensed sources above plus OASST2 and project-generated arithmetic, with 92,360 train / 974 validation / 964 test rows. Run `prepare_chatmix_v2.py` and `validate_chatmix_v2.py` to rebuild and check it. It is a filtered experiment, not a claim that every row is accurate.
+
+[Dialogue Seed v1](https://huggingface.co/datasets/divyanshumishra/Adivyanta-Dialogue-Seed-v1) is a separate 60-row, project-authored style supplement with greetings, memory phrasing, conversational repair, dating advice and opt-in roasts. Run `prepare_dialogue_seed_v1.py` to rebuild it and `publish_dialogue_seed_v1.py` to publish it. It contains fictional names and no local user chats. The seed set is too small for a meaningful independent benchmark, and the current model weights were not retrained on it.
 
 An experimental [ChatMix v2 model checkpoint](https://huggingface.co/divyanshumishra/Adivyanta-46M) continues the scratch-trained chat model for 5,000 steps on that dataset. The checkpoint is `chatmix_v2_model.safetensors` and the download includes raw outputs and metrics. Run `python inference.py --variant chatmix-v2 --prompt "Kya scene hai?"` inside the downloaded model folder. The [ChatMix v2 benchmark report](benchmarks/CHATMIX_V2_REPORT.md) compares it with the earlier chat checkpoint: held-out response-token losses improved, but exact arithmetic remained 0/100 and the fixed GSM8K subset remained 0/50. Its free-form replies are still frequently poor.
 

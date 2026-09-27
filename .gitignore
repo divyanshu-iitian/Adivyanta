@@ -13,3 +13,6 @@ adivyanta_indic/best.pt
 adivyanta_indic/chat_best.pt
 adivyanta_indic/chatmix_v2*/best.pt
 adivyanta_indic/chatmix_v2/
+adivyanta_indic/chatmix_v2_refined/tokenizer.json
+benchmarks/chatmix_math_interim.jsonl
+benchmarks/chatmix_math_interim.summary.json

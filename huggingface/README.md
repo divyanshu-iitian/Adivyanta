@@ -81,6 +81,8 @@ Loss is next-token fit to the selected source distribution, not a measure of tru
 
 The legacy test losses use the **same test set** for both checkpoints. ChatMix v2's own 964-row test losses and raw sampled/greedy answers are included in `metrics/` and `benchmarks/`. The ChatMix validation row compares the v2 checkpoint before and after its continuation, with the same validation split. Lower loss did **not** make it a dependable reasoner, conversationalist, or roast writer. See the [ChatMix v2 benchmark report](https://github.com/divyanshu-iitian/Adivyanta/blob/main/benchmarks/CHATMIX_V2_REPORT.md).
 
+A later [focused chat continuation trial](https://github.com/divyanshu-iitian/Adivyanta/blob/main/benchmarks/CHAT_FOCUS_TRIAL.md) made validation loss worse at every measured checkpoint through step 18,000, so its weights were not published as an upgrade. The current ChatMix v2 file remains the best selected checkpoint from these experiments, despite its poor raw replies.
+
 ## License and limitations
 
 The original code and these scratch Indic weights are MIT licensed; see `LICENSE`. The older 9.71M checkpoints from the GitHub project used Meta EmpatheticDialogues under CC BY-NC 4.0 and are **not included here**.

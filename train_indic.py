@@ -82,6 +82,8 @@ def main():
     parser.add_argument("--accum", type=int, default=2)
     parser.add_argument("--eval-every", type=int, default=500)
     parser.add_argument("--lr", type=float, default=3e-4)
+    parser.add_argument("--relative-schedule", action="store_true",
+                        help="Restart warmup/cosine schedule for this continuation instead of using absolute step")
     parser.add_argument("--resume", action="store_true")
     parser.add_argument("--init-checkpoint", type=Path)
     parser.add_argument("--data-dir", type=Path, default=DATA)
@@ -126,15 +128,25 @@ def main():
     report = {"parameters": model.parameter_count(), "train_examples": len(train),
               "valid_examples": len(valid), "device": str(device), "data_dir": str(data_dir),
               "init_checkpoint": str(args.init_checkpoint) if args.init_checkpoint else None,
+              "relative_schedule": args.relative_schedule,
+              "schedule_origin_step": start,
+              "schedule_target_step": args.steps,
               "initial_validation_loss": round(best, 4) if args.init_checkpoint else None, "steps": []}
     if (out_dir / "training_metrics.json").exists() and args.resume:
         report = json.loads((out_dir / "training_metrics.json").read_text(encoding="utf-8"))
+        if report.get("relative_schedule") != args.relative_schedule:
+            raise ValueError("Resume must use the original schedule mode")
+        if args.relative_schedule and report.get("schedule_target_step") != args.steps:
+            raise ValueError("Relative-schedule resume must keep the original --steps target")
+    schedule_origin = report.get("schedule_origin_step", start)
     print(json.dumps({"parameters": model.parameter_count(), "train_examples": len(train),
                       "valid_examples": len(valid), "start_step": start}), flush=True)
     rng = random.Random(43 + start)
     t0 = time.time()
     for step in range(start + 1, args.steps + 1):
-        scale = min(1.0, step / 300) * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * step / args.steps)))
+        schedule_step = step - schedule_origin if args.relative_schedule else step
+        schedule_total = args.steps - schedule_origin if args.relative_schedule else args.steps
+        scale = min(1.0, schedule_step / 300) * (0.1 + 0.9 * 0.5 * (1 + math.cos(math.pi * schedule_step / schedule_total)))
         for group in optimizer.param_groups:
             group["lr"] = args.lr * scale
         optimizer.zero_grad(set_to_none=True)

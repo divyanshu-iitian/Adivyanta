@@ -37,6 +37,13 @@ class Memory:
             if value and len(value.split()) <= 3:
                 self.data["facts"]["name"] = value
                 changes.append("name")
+        girlfriend = re.fullmatch(
+            r"\s*([A-Za-z][A-Za-z -]{1,34})\s+is my\s+(?:gf|girlfriend)\s*[.!]?\s*",
+            message, re.I,
+        )
+        if girlfriend:
+            self.data["facts"]["girlfriend"] = girlfriend.group(1).strip()
+            changes.append("girlfriend")
         language = re.search(r"\b(?:speak|talk|reply|respond|i prefer)\s+(?:to me\s+)?(?:in\s+)?(hindi|hinglish|english)\b|\b(hindi|hinglish|english)\s+(?:mein|me)\s+(?:baat|reply|bolo|bolna)\b", message, re.I)
         if language:
             self.data["facts"]["language"] = (language.group(1) or language.group(2)).lower()
@@ -52,7 +59,7 @@ class Memory:
                          note.group(1) if note else message, re.I)
         if like and "?" not in message:
             item = (like.group(1) or like.group(2)).strip(" .!?")
-            if item and item.casefold() not in {x.casefold() for x in self.data["likes"]}:
+            if item and item.casefold() not in {"you", "u", "tum", "tumhe", "aap"} and item.casefold() not in {x.casefold() for x in self.data["likes"]}:
                 self.data["likes"].append(item)
                 self.data["likes"] = self.data["likes"][-20:]
                 changes.append("likes")
@@ -83,6 +90,8 @@ class Memory:
             lines.append(f"The user prefers {facts['language']}.")
         if facts.get("creator") == "user":
             lines.append("The user says they built this Adivyanta project. Acknowledge this without claiming consciousness.")
+        if facts.get("girlfriend"):
+            lines.append(f"The user says their girlfriend's name is {facts['girlfriend']}.")
         lines.extend(f"User asked you to remember: {note}" for note in self.data["notes"][-20:])
         if self.data["likes"]:
             lines.append("The user likes: " + ", ".join(self.data["likes"]) + ".")
@@ -97,6 +106,9 @@ class Memory:
             return f"तुम्हारा नाम {name} है।" if "मेरा नाम" in q else f"Haan, tumhara naam {name} hai."
         if self.data["likes"] and re.search(r"\b(?:what do i like|what food do i like|what do you know i like|mujhe kya pasand)\b", q):
             return "Tumhe " + ", ".join(self.data["likes"]) + " pasand hai."
+        girlfriend = self.data["facts"].get("girlfriend")
+        if girlfriend and re.search(r"\b(?:what(?:'s| is) my (?:gf|girlfriend)(?:'s name)?|who is my (?:gf|girlfriend)|meri (?:gf|girlfriend) ka naam kya|meri (?:gf|girlfriend) kaun)\b", q):
+            return f"Tumne bataya tha ki {girlfriend} tumhari girlfriend hai."
         return self.data["corrections"].get(q)
 
     def correct(self, question, answer):

@@ -1,0 +1,38 @@
+{
+  "parameters": 46349312,
+  "train_examples": 15652,
+  "valid_examples": 589,
+  "device": "cuda",
+  "data_dir": "data\\chat_focus",
+  "init_checkpoint": "adivyanta_indic\\chatmix_v2_refined\\best.pt",
+  "relative_schedule": true,
+  "schedule_origin_step": 17000,
+  "schedule_target_step": 19000,
+  "initial_validation_loss": 2.3188,
+  "steps": [
+    {
+      "step": 17250,
+      "train_loss": 3.2372,
+      "validation_loss": 2.3548,
+      "elapsed_seconds": 53
+    },
+    {
+      "step": 17500,
+      "train_loss": 3.6005,
+      "validation_loss": 2.3726,
+      "elapsed_seconds": 107
+    },
+    {
+      "step": 17750,
+      "train_loss": 2.7533,
+      "validation_loss": 2.3618,
+      "elapsed_seconds": 170
+    },
+    {
+      "step": 18000,
+      "train_loss": 3.2476,
+      "validation_loss": 2.3391,
+      "elapsed_seconds": 228
+    }
+  ]
+}

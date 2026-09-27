@@ -31,6 +31,18 @@ class MemoryTests(unittest.TestCase):
             Memory(path).learn("मेरा नाम दिव्यांशु है।")
             self.assertEqual(Memory(path).known_answer("मेरा नाम क्या है?"), "तुम्हारा नाम दिव्यांशु है।")
 
+    def test_relationship_fact_and_affection_do_not_pollute_likes(self):
+        with tempfile.TemporaryDirectory() as directory:
+            path = Path(directory) / "memory.json"
+            first = Memory(path)
+            self.assertIn("girlfriend", first.learn("adita is my gf"))
+            first.learn("i love you")
+            second = Memory(path)
+            self.assertEqual(second.known_answer("who is my gf?"), "Tumne bataya tha ki adita tumhari girlfriend hai.")
+            self.assertEqual(second.data["likes"], [])
+            self.assertTrue(second.forget("girlfriend"))
+            self.assertIsNone(Memory(path).known_answer("who is my gf?"))
+
 
 if __name__ == "__main__":
     unittest.main()

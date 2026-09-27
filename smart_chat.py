@@ -16,6 +16,7 @@ from model import GPT, GPTConfig
 ROOT = Path(__file__).parent
 CHECKPOINT = ROOT / "adivyanta_indic" / "best.pt"
 MODEL_CHOICES = (
+    ROOT / "adivyanta_indic" / "chatmix_v2_refined" / "best.pt",
     ROOT / "adivyanta_indic" / "expanded" / "chat_best.pt",
     ROOT / "adivyanta_indic" / "expanded" / "best.pt",
     ROOT / "adivyanta_indic" / "chat_best.pt",
@@ -37,6 +38,12 @@ def familiar_reply(message, memory):
         return "Tumse baat kar raha hoon. Batao, aaj kya chal raha hai?"
     if clean in {"samosa", "समोसा"}:
         return "Samosa! Hari chutney ke saath ya imli wali?"
+    if clean in {"what is your name", "what's your name", "whats your name", "your name", "tumhara naam kya hai", "aapka naam kya hai", "तुम्हारा नाम क्या है", "आपका नाम क्या है"}:
+        return "Mera naam Adivyanta hai."
+    if clean in {"i love you", "love you", "mujhe tumse pyaar hai", "मुझे तुमसे प्यार है"}:
+        return "Yeh sunkar achha laga! Main Adivyanta hoon; tumse baat karne ke liye yahan hoon."
+    if clean in {"ha", "haan", "han", "yes", "yep", "ji"}:
+        return "Haan, batao—kis baare mein baat karein?"
     return None
 
 
@@ -113,6 +120,8 @@ def reply(model, tok, memory, message):
         answer = memory.facts_text() or "Abhi koi personal fact save nahi hai. /remember se bata sakte ho."
     elif "name" in changes:
         answer = f"Theek hai, {memory.data['facts']['name']}! Naam yaad rakhunga."
+    elif "girlfriend" in changes:
+        answer = f"Samjha, {memory.data['facts']['girlfriend']} tumhari girlfriend hai."
     elif "creator" in changes:
         name = memory.data["facts"].get("name")
         answer = f"Haan{', ' + name if name else ''}, tumne Adivyanta project banaya hai. Kya improve karein?"
@@ -136,7 +145,7 @@ def command(memory, line):
         memory.remember(line[len("/remember "):])
         return "Yaad rakh liya. /memory se dekh sakte ho."
     if line.startswith("/forget "):
-        return "Bhool gaya." if memory.forget(line[len("/forget "):]) else "Woh memory key nahi mili. Try name, language, creator, likes, notes, history, or all."
+        return "Bhool gaya." if memory.forget(line[len("/forget "):]) else "Woh memory key nahi mili. Try name, girlfriend, language, creator, likes, notes, history, or all."
     if line.startswith("/correct "):
         body = line[len("/correct "):]
         if "=>" not in body:
@@ -145,7 +154,7 @@ def command(memory, line):
         memory.correct(question, answer)
         return "Correction saved. Isi question par agle baar ye answer dunga."
     if line == "/help":
-        return "/memory, /remember fact, /forget name|language|creator|likes|notes|history|all, /correct question => answer, /quit"
+        return "/memory, /remember fact, /forget name|girlfriend|language|creator|likes|notes|history|all, /correct question => answer, /quit"
     return None
 
 
@@ -167,7 +176,8 @@ def main():
     alternate = None
     base_path = ROOT / "adivyanta_indic" / "expanded" / "best.pt"
     personalized = ROOT / "data" / "personalized.pt"
-    if args.checkpoint is None and not personalized.exists() and base_path.exists() and (base_path.parent / "chat_best.pt").exists():
+    v2_path = ROOT / "adivyanta_indic" / "chatmix_v2_refined" / "best.pt"
+    if args.checkpoint is None and not personalized.exists() and not v2_path.exists() and base_path.exists() and (base_path.parent / "chat_best.pt").exists():
         alternate, _ = load_model(base_path, prefer_local=False)
 
     def answer_message(line):

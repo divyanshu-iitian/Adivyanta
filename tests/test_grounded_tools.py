@@ -9,6 +9,7 @@ class GroundedToolsTests(unittest.TestCase):
         self.assertEqual(arithmetic_answer("7 / 2"), "7/2")
         self.assertEqual(arithmetic_answer("23 + 4 का उत्तर क्या है?"), "27")
         self.assertEqual(arithmetic_answer("23 + 4 kitna hota hai?"), "27")
+        self.assertEqual(arithmetic_answer("5+5 kya hota hai"), "10")
 
     def test_refuses_other_text_and_unsafe_expressions(self):
         self.assertIsNone(arithmetic_answer("I have 2 keys and 3 bags"))

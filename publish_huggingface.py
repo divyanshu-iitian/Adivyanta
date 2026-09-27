@@ -23,6 +23,7 @@ def main():
     api.create_repo(repo_id=repo_id, repo_type="model", private=False, exist_ok=True)
     result = api.upload_folder(
         folder_path=str(PACKAGE), repo_id=repo_id, repo_type="model",
+        ignore_patterns=["**/__pycache__/**", "**/*.pyc"],
         commit_message="Release Adivyanta 46M scratch checkpoints, model card and benchmarks",
     )
     print(f"Uploaded https://huggingface.co/{repo_id}")

@@ -11,6 +11,7 @@ from conversation_memory import DEFAULT_PATH, Memory
 from curated_roast import choose, choose_spicy
 from grounded_tools import arithmetic_answer
 from model import GPT, GPTConfig
+from travel_planner import asks_to_make_plan, pachmarhi_plan
 
 
 ROOT = Path(__file__).parent
@@ -42,6 +43,12 @@ def familiar_reply(message, memory):
         return "Mera naam Adivyanta hai."
     if clean in {"gf kaise banaye", "girlfriend kaise banaye", "gf kaise banau", "how do i get a girlfriend"}:
         return "Pehle dosti aur genuine baat-cheet se shuru karo. Samne wale ki choice aur boundaries respect karo; connection dono taraf se ho tabhi aage badho."
+    if clean in {"im feeling low", "i'm feeling low", "i feel low", "feeling down", "mood off hai", "main udaas hoon"}:
+        return "Sunke bura laga. Agar chaho toh batao kya hua; main dhyan se sununga. Abhi ek chhota break ya kisi apne se baat karna bhi help kar sakta hai."
+    if clean in {"are you an slm", "are you a small language model", "are you an ai"}:
+        return "Haan. Main Adivyanta, 46M-parameter scratch-trained small language model hoon. App mein local memory aur kuch exact-answer tools bhi hain."
+    if clean in {"acha kya kar sakte ho", "tum kya kar sakte ho", "what can you do", "what are your capabilities"}:
+        return "Main simple chat, explicit facts yaad rakhna, arithmetic, playful roasts aur basic trip outline mein help kar sakta hoon. Open-ended facts aur reasoning mein galtiyan hoti hain—important cheez verify karna."
     if clean in {"acha beta", "achha beta", "accha beta"}:
         return "Ji boss 😄 Ab batao, kya scene hai?"
     if re.search(r"\b(?:adivyanta|tu|tum|tera)\b.*\b(?:chutiya|bakwaas|bakwas|bewakoof|bekaar)\b", clean):
@@ -113,7 +120,15 @@ def reply(model, tok, memory, message):
     known = memory.known_answer(message)
     calculated = arithmetic_answer(message)
     familiar = familiar_reply(message, memory)
-    if known:
+    state = memory.data["state"]
+    task_age = len(memory.data["turns"]) - state.get("pending_task_turn", -100)
+    pending_recent = state.get("pending_task") == "pachmarhi_plan" and 0 <= task_age <= 4
+    if asks_to_make_plan(message) and pending_recent:
+        answer = pachmarhi_plan()
+        state.pop("pending_task", None)
+        state.pop("pending_task_turn", None)
+        memory.save()
+    elif known:
         answer = known
     elif calculated is not None:
         answer = calculated
@@ -125,6 +140,8 @@ def reply(model, tok, memory, message):
         answer = f"Theek hai, {memory.data['facts']['name']}! Naam yaad rakhunga."
     elif "girlfriend" in changes:
         answer = f"Samjha, {memory.data['facts']['girlfriend']} tumhari girlfriend hai."
+    elif "trip" in changes:
+        answer = "Pachmarhi trip! Main 2-day starter plan bana sakta hoon. Bana doon?"
     elif "creator" in changes:
         name = memory.data["facts"].get("name")
         answer = f"Haan{', ' + name if name else ''}, tumne Adivyanta project banaya hai. Kya improve karein?"
@@ -134,6 +151,8 @@ def reply(model, tok, memory, message):
         answer = "Kisi habit ya hobby ka roast karte hain. Topic batao, ek playful line dunga."
     elif ROAST_RE.search(message) and not NO_ROAST_RE.search(message):
         answer = choose_spicy(message) or choose(message)[0] or "Bhai, kis cheez ka roast chahiye—coding, padhai, ya teri to-do list?"
+    elif asks_to_make_plan(message):
+        answer = "Kya plan banaun? Destination aur kitne din ke liye, dono bata do."
     else:
         answer = generate(model, tok, memory, message)
     memory.add_turn("user", message)
@@ -148,7 +167,7 @@ def command(memory, line):
         memory.remember(line[len("/remember "):])
         return "Yaad rakh liya. /memory se dekh sakte ho."
     if line.startswith("/forget "):
-        return "Bhool gaya." if memory.forget(line[len("/forget "):]) else "Woh memory key nahi mili. Try name, girlfriend, language, creator, likes, notes, history, or all."
+        return "Bhool gaya." if memory.forget(line[len("/forget "):]) else "Woh memory key nahi mili. Try name, girlfriend, trip, language, creator, likes, notes, history, or all."
     if line.startswith("/correct "):
         body = line[len("/correct "):]
         if "=>" not in body:
@@ -157,7 +176,7 @@ def command(memory, line):
         memory.correct(question, answer)
         return "Correction saved. Isi question par agle baar ye answer dunga."
     if line == "/help":
-        return "/memory, /remember fact, /forget name|girlfriend|language|creator|likes|notes|history|all, /correct question => answer, /quit"
+        return "/memory, /remember fact, /forget name|girlfriend|trip|language|creator|likes|notes|history|all, /correct question => answer, /quit"
     return None
 
 

@@ -51,6 +51,9 @@ class MemoryTests(unittest.TestCase):
                              "riya ke baare mein bas tumne bataya hai ki woh tumhari girlfriend hai. Main unhe personally nahi janta.")
             self.assertEqual(memory.known_answer("tum neha ko jante ho?"),
                              "neha ke baare mein tumne mujhe abhi kuch nahi bataya.")
+            self.assertIn("girlfriend", memory.learn("meri gf riya hai"))
+            self.assertEqual(memory.known_answer("who is my gf?"),
+                             "Tumne bataya tha ki riya tumhari girlfriend hai.")
 
 
 if __name__ == "__main__":

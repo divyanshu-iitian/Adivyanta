@@ -1,9 +1,9 @@
 {
-  "version": "1.0.0",
-  "rows": 60,
-  "sha256_train": "3489c513947a221676bf1d6578db7a32a06b3d687c4a6c9a5043524ab8753a60",
+  "version": "1.1.0",
+  "rows": 66,
+  "sha256_train": "4f31628facb644fc5ecf65a57e8f0789beeec414f5fd155b816d55a3c839a1f2",
   "by_language": {
-    "hinglish": 41,
+    "hinglish": 47,
     "eng": 16,
     "hin": 3
   },
@@ -12,13 +12,15 @@
     "smalltalk": 7,
     "banter": 3,
     "affection": 3,
-    "identity": 7,
-    "memory": 10,
+    "support": 2,
+    "identity": 9,
+    "memory": 11,
     "dating": 6,
     "repair": 4,
     "uncertainty": 2,
     "roast": 7,
-    "basic_qa": 7
+    "basic_qa": 7,
+    "travel": 1
   },
   "source": "project-authored synthetic examples",
   "license": "MIT",

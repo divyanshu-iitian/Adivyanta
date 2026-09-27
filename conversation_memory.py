@@ -4,6 +4,8 @@ import os
 from pathlib import Path
 import re
 
+from travel_planner import mentioned_trip
+
 
 DEFAULT_PATH = Path(__file__).parent / "data" / "adivyanta_memory.json"
 MAX_NOTES = 50
@@ -16,8 +18,8 @@ class Memory:
         if self.path.exists():
             self.data = json.loads(self.path.read_text(encoding="utf-8"))
         else:
-            self.data = {"facts": {}, "notes": [], "likes": [], "turns": [], "corrections": {}}
-        for key, default in (("facts", {}), ("notes", []), ("likes", []), ("turns", []), ("corrections", {})):
+            self.data = {"facts": {}, "notes": [], "likes": [], "turns": [], "corrections": {}, "state": {}}
+        for key, default in (("facts", {}), ("notes", []), ("likes", []), ("turns", []), ("corrections", {}), ("state", {})):
             self.data.setdefault(key, default)
 
     def save(self):
@@ -51,9 +53,15 @@ class Memory:
                 r"\bmeri\s+(?:gf|girlfriend)\s+ka\s+naam\s+(?:hai\s+)?([A-Za-z]{2,25})\b",
                 message, re.I,
             )
+        if not girlfriend:
+            girlfriend = re.search(r"\bmeri\s+(?:gf|girlfriend)\s+([A-Za-z]{2,25})\s+hai\b", message, re.I)
         if girlfriend:
             self.data["facts"]["girlfriend"] = girlfriend.group(1).strip()
             changes.append("girlfriend")
+        if mentioned_trip(message):
+            self.data["state"].update({"pending_task": "pachmarhi_plan",
+                                       "pending_task_turn": len(self.data["turns"])})
+            changes.append("trip")
         language = re.search(r"\b(?:speak|talk|reply|respond|i prefer)\s+(?:to me\s+)?(?:in\s+)?(hindi|hinglish|english)\b|\b(hindi|hinglish|english)\s+(?:mein|me)\s+(?:baat|reply|bolo|bolna)\b", message, re.I)
         if language:
             self.data["facts"]["language"] = (language.group(1) or language.group(2)).lower()
@@ -137,7 +145,7 @@ class Memory:
     def forget(self, key):
         key = key.strip().lower()
         if key == "all":
-            self.data = {"facts": {}, "notes": [], "likes": [], "turns": [], "corrections": {}}
+            self.data = {"facts": {}, "notes": [], "likes": [], "turns": [], "corrections": {}, "state": {}}
         elif key in self.data["facts"]:
             del self.data["facts"][key]
         elif key == "notes":
@@ -146,6 +154,11 @@ class Memory:
             self.data["likes"] = []
         elif key == "history":
             self.data["turns"] = []
+            self.data["state"].pop("pending_task", None)
+            self.data["state"].pop("pending_task_turn", None)
+        elif key == "trip":
+            self.data["state"].pop("pending_task", None)
+            self.data["state"].pop("pending_task_turn", None)
         else:
             return False
         self.save()

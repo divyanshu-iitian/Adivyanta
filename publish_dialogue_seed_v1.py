@@ -38,7 +38,7 @@ configs:
 
 # Adivyanta Dialogue Seed v1
 
-This is a **small, project-authored synthetic style supplement** with {count} English, Hindi, and Hinglish prompt/response examples. It covers casual chat, local-memory wording, honest uncertainty, dating advice, and consensual, sometimes profane roasts. It is **not** a general knowledge corpus, a benchmark, or proof of model improvement. There is no held-out split because the set is too small to support a meaningful independent estimate.
+This is a **small, project-authored synthetic style supplement** with {count} English, Hindi, and Hinglish prompt/response examples. It covers casual chat, local-memory wording, honest uncertainty, supportive replies, trip-intent wording, dating advice, and consensual, sometimes profane roasts. It is **not** a general knowledge corpus, a benchmark, or proof of model improvement. There is no held-out split because the set is too small to support a meaningful independent estimate. These are single-turn pairs; they do not teach the model to resolve follow-ups such as `yes make it` without explicit conversation context.
 
 The data contains no exported user chats or local memory. Names in examples are fictional. The examples were authored for this project, not scraped from social media. Some rows contain Hindi slang and profanity; they target habits or the bot in opt-in banter, not protected groups. The rows are MIT-licensed project work.
 

@@ -6,7 +6,9 @@ import re
 
 EXPRESSION = re.compile(
     r"^\s*(?:(?:what is|calculate|compute|solve|kitna hai|batao)\s+)?"
-    r"([0-9\s+*/().-]{3,80})\s*(?:\?|=)?\s*$", re.I
+    r"([0-9\s+*/().-]{3,80})\s*"
+    r"(?:(?:kitna hota hai|kitna hai|का उत्तर क्या है|का जवाब क्या है|कितना है)\s*)?"
+    r"(?:\?|=|।)?\s*$", re.I
 )
 
 

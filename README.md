@@ -67,6 +67,8 @@ A second corpus build in [prepare_expanded_data.py](prepare_expanded_data.py) ad
 
 A smaller, cleaner [Adivyanta ChatMix v2 dataset](https://huggingface.co/datasets/divyanshumishra/Adivyanta-ChatMix-v2) is now published separately. It is derived from the licensed sources above plus OASST2 and project-generated arithmetic, with 92,360 train / 974 validation / 964 test rows. Run `prepare_chatmix_v2.py` and `validate_chatmix_v2.py` to rebuild and check it. It is a filtered experiment, not a claim that every row is accurate.
 
+An experimental [ChatMix v2 model checkpoint](https://huggingface.co/divyanshumishra/Adivyanta-46M) continues the scratch-trained chat model for 5,000 steps on that dataset. The checkpoint is `chatmix_v2_model.safetensors` and the download includes raw outputs and metrics. Run `python inference.py --variant chatmix-v2 --prompt "Kya scene hai?"` inside the downloaded model folder. The [ChatMix v2 benchmark report](benchmarks/CHATMIX_V2_REPORT.md) compares it with the earlier chat checkpoint: held-out response-token losses improved, but exact arithmetic remained 0/100 and the fixed GSM8K subset remained 0/50. Its free-form replies are still frequently poor.
+
 The corpus includes some other Indian languages through Aya, but their sample counts are small. Hindi, Hinglish, and English are the main targets. The Aya shards include translated or templated examples, and the Hinglish dataset is synthetic; they are not equivalent to a large, carefully edited native conversation corpus. No Reddit posts were scraped. Dataset licenses permit broad reuse according to their cards; inspect the cards and provenance before using the model for a specific product.
 
 To reproduce on a CUDA machine:
@@ -80,6 +82,10 @@ To reproduce on a CUDA machine:
 .\.venv\Scripts\python.exe fine_tune_indic_chat.py --base-checkpoint adivyanta_indic\expanded\best.pt --data-dir data\indic_expanded --out-dir adivyanta_indic\expanded --steps 3000
 .\.venv\Scripts\python.exe evaluate_indic.py --checkpoint adivyanta_indic\expanded\chat_best.pt --data-dir data\indic_expanded
 .\.venv\Scripts\python.exe benchmark_indic.py --checkpoint adivyanta_indic\expanded\chat_best.pt --out benchmarks\indic_expanded_outputs.jsonl
+.\.venv\Scripts\python.exe prepare_chatmix_v2.py
+.\.venv\Scripts\python.exe validate_chatmix_v2.py
+.\.venv\Scripts\python.exe train_indic.py --steps 17000 --init-checkpoint adivyanta_indic\expanded\chat_best.pt --data-dir data\chatmix_v2 --out-dir adivyanta_indic\chatmix_v2_refined --batch-size 8 --accum 2 --eval-every 500 --lr 0.00015
+.\.venv\Scripts\python.exe benchmark_indic.py --checkpoint adivyanta_indic\chatmix_v2_refined\best.pt --out benchmarks\indic_chatmix_v2_outputs.jsonl
 ```
 
 The data preparation steps download the stated **datasets**, not model weights. They need several gigabytes of free disk space. Training used an RTX 2050 with 4 GB VRAM. `adivyanta_indic/best.pt` is the first corpus checkpoint created locally when reproducing training; `adivyanta_indic/expanded/best.pt` continues those scratch weights on the larger corpus; `expanded/chat_best.pt` is its conversational continuation. The GitHub repo ships the two expanded checkpoints needed for chat. The first-phase weights and full optimizer checkpoint `last.pt` stay local to keep the repo size manageable.

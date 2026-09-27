@@ -24,7 +24,7 @@ def main():
     result = api.upload_folder(
         folder_path=str(PACKAGE), repo_id=repo_id, repo_type="model",
         ignore_patterns=["**/__pycache__/**", "**/*.pyc"],
-        commit_message="Release Adivyanta 46M scratch checkpoints, model card and benchmarks",
+        commit_message="Add experimental ChatMix v2 checkpoint and honest benchmarks",
     )
     print(f"Uploaded https://huggingface.co/{repo_id}")
     print(f"Commit: {result}")

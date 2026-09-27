@@ -68,7 +68,7 @@ def load_model(checkpoint=None, prefer_local=True):
 
 
 @torch.inference_mode()
-def generate(model, tok, memory, message, max_new_tokens=80):
+def generate(model, tok, memory, message, max_new_tokens=80, temperature=0.75, top_k=30, greedy=False):
     history = memory.data["turns"][-4:]
     pieces = ["<|bos|>"]
     for turn in history:
@@ -82,16 +82,16 @@ def generate(model, tok, memory, message, max_new_tokens=80):
     for _ in range(max_new_tokens):
         x = torch.tensor([ids[-model.cfg.block_size:]], device=device)
         logits, _ = model(x)
-        scores = logits[0, -1].float() / 0.75
+        scores = logits[0, -1].float() / temperature
         scores[tok.token_to_id("<|pad|>")] = -float("inf")
         for previous in set(ids[prompt_len:]):
             if scores[previous] > 0:
                 scores[previous] /= 1.2
             else:
                 scores[previous] *= 1.2
-        threshold = torch.topk(scores, min(30, scores.numel())).values[-1]
+        threshold = torch.topk(scores, min(top_k, scores.numel())).values[-1]
         scores[scores < threshold] = -float("inf")
-        next_id = torch.multinomial(torch.softmax(scores, dim=-1), 1).item()
+        next_id = scores.argmax().item() if greedy else torch.multinomial(torch.softmax(scores, dim=-1), 1).item()
         if next_id in stop:
             break
         ids.append(next_id)

@@ -1,0 +1,10 @@
+{
+  "dataset": "openai/gsm8k",
+  "revision": "740312add88f781978c0658806c59bc2815b9866",
+  "split": "official test",
+  "checkpoint": "adivyanta_indic\\chatmix_v2_refined\\best.pt",
+  "questions": 50,
+  "exact_answers": 0,
+  "accuracy": 0.0,
+  "caveat": "Small seeded subset. Last generated number is used as the answer; this is not a broad reasoning benchmark."
+}

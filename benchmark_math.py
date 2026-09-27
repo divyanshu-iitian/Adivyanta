@@ -29,6 +29,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--limit", type=int, default=50)
+    parser.add_argument("--output-stem", default="math", help="Prefix for benchmark files")
     args = parser.parse_args()
     path = hf_hub_download("openai/gsm8k", "main/test-00000-of-00001.parquet",
                            repo_type="dataset", revision=REVISION)
@@ -40,7 +41,7 @@ def main():
     out = ROOT / "benchmarks"
     out.mkdir(exist_ok=True)
     correct = 0
-    with (out / "math_outputs.jsonl").open("w", encoding="utf-8") as file:
+    with (out / f"{args.output_stem}_outputs.jsonl").open("w", encoding="utf-8") as file:
         for index, row in enumerate(chosen, 1):
             torch.manual_seed(2026 + index)
             response = generate(model, tok, memory, row["question"], max_new_tokens=100)
@@ -56,7 +57,7 @@ def main():
                "checkpoint": str(args.checkpoint) if args.checkpoint else "default released model",
                "questions": len(chosen), "exact_answers": correct, "accuracy": round(correct / len(chosen), 4),
                "caveat": "Small seeded subset. Last generated number is used as the answer; this is not a broad reasoning benchmark."}
-    (out / "math_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
+    (out / f"{args.output_stem}_summary.json").write_text(json.dumps(summary, indent=2), encoding="utf-8")
     print(json.dumps(summary, indent=2))
 
 

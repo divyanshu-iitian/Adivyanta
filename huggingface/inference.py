@@ -19,7 +19,9 @@ def generate(prompt, variant="base", seed=42, max_new_tokens=80):
     device = "cuda" if torch.cuda.is_available() else "cpu"
     config = GPTConfig(**json.loads((ROOT / "config.json").read_text(encoding="utf-8")))
     model = GPT(config).to(device)
-    filename = "chat_model.safetensors" if variant == "chat" else "model.safetensors"
+    filenames = {"base": "model.safetensors", "chat": "chat_model.safetensors",
+                 "chatmix-v2": "chatmix_v2_model.safetensors"}
+    filename = filenames[variant]
     missing, unexpected = model.load_state_dict(load_file(str(ROOT / filename), device=device), strict=False)
     if set(missing) != {"head.weight"} or unexpected:
         raise ValueError(f"Invalid checkpoint: missing={missing}, unexpected={unexpected}")
@@ -45,7 +47,7 @@ def generate(prompt, variant="base", seed=42, max_new_tokens=80):
 if __name__ == "__main__":
     parser = argparse.ArgumentParser()
     parser.add_argument("--prompt", required=True)
-    parser.add_argument("--variant", choices=("base", "chat"), default="base")
+    parser.add_argument("--variant", choices=("base", "chat", "chatmix-v2"), default="base")
     parser.add_argument("--seed", type=int, default=42)
     args = parser.parse_args()
     print(generate(args.prompt, args.variant, args.seed))

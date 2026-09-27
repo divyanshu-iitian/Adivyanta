@@ -1,0 +1,75 @@
+{
+  "checkpoint": "adivyanta_indic\\chatmix_v2_refined\\best.pt",
+  "checkpoint_step": 17000,
+  "parameters": 46349312,
+  "test_examples": 2515,
+  "by_language": {
+    "ben": {
+      "examples": 4,
+      "response_tokens": 359,
+      "loss": 3.6326,
+      "perplexity": 37.81
+    },
+    "eng": {
+      "examples": 884,
+      "response_tokens": 62399,
+      "loss": 4.2042,
+      "perplexity": 66.97
+    },
+    "guj": {
+      "examples": 23,
+      "response_tokens": 2925,
+      "loss": 3.5146,
+      "perplexity": 33.6
+    },
+    "hin": {
+      "examples": 1391,
+      "response_tokens": 59089,
+      "loss": 2.0209,
+      "perplexity": 7.54
+    },
+    "hinglish": {
+      "examples": 42,
+      "response_tokens": 3732,
+      "loss": 2.9945,
+      "perplexity": 19.97
+    },
+    "mal": {
+      "examples": 11,
+      "response_tokens": 1043,
+      "loss": 3.0088,
+      "perplexity": 20.26
+    },
+    "mar": {
+      "examples": 17,
+      "response_tokens": 878,
+      "loss": 3.1791,
+      "perplexity": 24.03
+    },
+    "pan": {
+      "examples": 25,
+      "response_tokens": 2463,
+      "loss": 3.0385,
+      "perplexity": 20.87
+    },
+    "tam": {
+      "examples": 64,
+      "response_tokens": 4107,
+      "loss": 2.4271,
+      "perplexity": 11.33
+    },
+    "tel": {
+      "examples": 51,
+      "response_tokens": 4683,
+      "loss": 3.153,
+      "perplexity": 23.41
+    },
+    "urd": {
+      "examples": 3,
+      "response_tokens": 295,
+      "loss": 5.1866,
+      "perplexity": 178.86
+    }
+  },
+  "caveat": "These are test response-token losses. Languages with few examples have unstable estimates; losses do not measure chat quality."
+}

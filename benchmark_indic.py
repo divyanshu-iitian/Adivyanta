@@ -37,6 +37,7 @@ def main():
     parser = argparse.ArgumentParser()
     parser.add_argument("--checkpoint", type=Path)
     parser.add_argument("--out", type=Path, default=ROOT / "benchmarks" / "indic_model_outputs.jsonl")
+    parser.add_argument("--greedy", action="store_true", help="Use deterministic argmax decoding")
     args = parser.parse_args()
     model, tok = load_model(args.checkpoint, prefer_local=False)
     memory = Memory(ROOT / "data" / "indic_benchmark_empty_memory.json")
@@ -45,7 +46,7 @@ def main():
     with args.out.open("w", encoding="utf-8") as f:
         for index, (language, prompt) in enumerate(PROMPTS, 1):
             torch.manual_seed(1000 + index)
-            response = generate(model, tok, memory, prompt)
+            response = generate(model, tok, memory, prompt, greedy=args.greedy)
             record = {"id": index, "language": language, "prompt": prompt, "model_only_response": response}
             f.write(json.dumps(record, ensure_ascii=False) + "\n")
             print(json.dumps(record, ensure_ascii=False), flush=True)

@@ -1,0 +1,8 @@
+{
+  "checkpoint": "adivyanta_indic\\expanded\\chat_best.pt",
+  "dataset": "ChatMix v2 generated_math test",
+  "questions": 100,
+  "exact_answers": 0,
+  "accuracy": 0.0,
+  "caveat": "Short generated arithmetic only; this does not measure word-problem reasoning or general intelligence."
+}

@@ -1,0 +1,73 @@
+{
+  "parameters": 46349312,
+  "train_examples": 92360,
+  "valid_examples": 974,
+  "device": "cuda",
+  "data_dir": "data\\chatmix_v2",
+  "init_checkpoint": "adivyanta_indic\\expanded\\chat_best.pt",
+  "initial_validation_loss": 3.4646,
+  "steps": [
+    {
+      "step": 12500,
+      "train_loss": 2.8696,
+      "validation_loss": 3.107,
+      "elapsed_seconds": 116
+    },
+    {
+      "step": 13000,
+      "train_loss": 3.0979,
+      "validation_loss": 3.0426,
+      "elapsed_seconds": 232
+    },
+    {
+      "step": 13500,
+      "train_loss": 3.4997,
+      "validation_loss": 3.0038,
+      "elapsed_seconds": 349
+    },
+    {
+      "step": 14000,
+      "train_loss": 3.2612,
+      "validation_loss": 2.9604,
+      "elapsed_seconds": 476
+    },
+    {
+      "step": 14500,
+      "train_loss": 2.7741,
+      "validation_loss": 2.9345,
+      "elapsed_seconds": 591
+    },
+    {
+      "step": 15000,
+      "train_loss": 2.2143,
+      "validation_loss": 2.914,
+      "elapsed_seconds": 705
+    },
+    {
+      "step": 15500,
+      "train_loss": 3.738,
+      "validation_loss": 2.8907,
+      "elapsed_seconds": 825
+    },
+    {
+      "step": 16000,
+      "train_loss": 2.9823,
+      "validation_loss": 2.8705,
+      "elapsed_seconds": 940
+    },
+    {
+      "step": 16500,
+      "train_loss": 2.581,
+      "validation_loss": 2.859,
+      "elapsed_seconds": 1054
+    },
+    {
+      "step": 17000,
+      "train_loss": 3.5907,
+      "validation_loss": 2.8445,
+      "elapsed_seconds": 1167
+    }
+  ],
+  "best_step": 17000,
+  "best_validation_loss": 2.8445
+}

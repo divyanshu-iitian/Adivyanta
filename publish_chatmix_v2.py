@@ -1,8 +1,11 @@
 """Publish the reproducible Adivyanta ChatMix v2 dataset after local curation."""
 import argparse
 import json
+import os
 from pathlib import Path
 import shutil
+
+os.environ.setdefault("HF_HUB_DISABLE_PROGRESS_BARS", "1")
 
 from huggingface_hub import HfApi, get_token
 

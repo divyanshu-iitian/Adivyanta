@@ -1,5 +1,7 @@
 # Adivyanta: an India-focused GPT trained from scratch
 
+The model is also packaged for Hugging Face with `export_huggingface.py` and `publish_huggingface.py`. The export contains standalone `safetensors` weights, tokenizer, PyTorch inference code, provenance, and the [model card](huggingface/README.md); the prepared upload folder stays under ignored `data/huggingface_upload/`.
+
 [Hinglish training walkthrough](TRAINING_GUIDE_HI.md) explains how the dataset, tokenizer, GPT weights, validation, and chat memory were built.
 
 Adivyanta's default chat model is a **46,349,312-parameter decoder-only Transformer initialized at random**. Its tokenizer was trained from the project data. It loads **no pretrained model weights**. The goal is local English, Hindi, and Roman Hindi (Hinglish) chat and playful roasts. The smaller 9.71M scratch GPT remains available as a historical baseline; the previous borrowed-base adapter has been removed from the current project.

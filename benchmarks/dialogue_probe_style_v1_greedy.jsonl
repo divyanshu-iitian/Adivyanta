@@ -1,0 +1,12 @@
+{"id": 1, "intent": "greeting", "prompt": "Hey Adivyanta, kaise ho?", "model_only_response": "Peedo, ek baat-based language model hoon.", "decoding": "greedy"}
+{"id": 2, "intent": "relationship", "prompt": "My girlfriend is Neha.", "model_only_response": "Thehaan, a hard and well-trained experience. It is the best way to make it feel free for you.", "decoding": "greedy"}
+{"id": 3, "intent": "support", "prompt": "I had a rough day and feel low. Can we talk?", "model_only_response": "I'm sorry to hear that. What's best?", "decoding": "greedy"}
+{"id": 4, "intent": "identity", "prompt": "What kind of model are you?", "model_only_response": "I can't know, but I don't have the ability to assist you.", "decoding": "greedy"}
+{"id": 5, "intent": "food", "prompt": "Samosa ke baare mein ek fun baat batao.", "model_only_response": "Samosa yaar! Tum to aajिलार-हें जोड़ी, क्रमेंदेश कर रही हैं।", "decoding": "greedy"}
+{"id": 6, "intent": "food", "prompt": "Burger ya samosa, kya choose karoge?", "model_only_response": "Samko!", "decoding": "greedy"}
+{"id": 7, "intent": "knowledge", "prompt": "Can you explain a compiler briefly?", "model_only_response": "Yes, \"The\" is a small term that is used to describe the same example of a short-based language. The \"parted\" is a very popular and powerful language that can be used as a simple language model.", "decoding": "greedy"}
+{"id": 8, "intent": "debugging", "prompt": "Mera code baar baar crash hota hai. Kya check karun?", "model_only_response": "Yaar, agar kuch din ghar se kaam karne ka mood hai toh chill hoga. Lekin pehle thoda sa time nikaal le, Netflix pe koi acchi series dekh le ya phir apne dost logon ko bula le. Aur haan, agar kuch important meetings hain toh local park mein ja sakta hoon. Thoda relax kar aur sab theek ho jayega", "decoding": "greedy"}
+{"id": 9, "intent": "study", "prompt": "Padhai mein focus kaise badhaun?", "model_only_response": "Sun yaar,: ek simple computer science ke liye online?", "decoding": "greedy"}
+{"id": 10, "intent": "roast", "prompt": "Roast my messy room in Hinglish.", "model_only_response": "I'm glad I could help. If you have any questions or need further assistance, feel free to ask!", "decoding": "greedy"}
+{"id": 11, "intent": "identity", "prompt": "Tum mere saath bahar chaloge?", "model_only_response": "Tum, mujhe bhi soch raha hoon.", "decoding": "greedy"}
+{"id": 12, "intent": "dating", "prompt": "How do I politely ask someone on a date?", "model_only_response": "It is possible to help you with that.", "decoding": "greedy"}

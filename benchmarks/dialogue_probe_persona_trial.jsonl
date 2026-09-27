@@ -1,0 +1,12 @@
+{"id": 1, "intent": "greeting", "prompt": "Hey Adivyanta, kaise ho?", "model_only_response": "Seि karo, kisi acchi cheez, research moves bahut zaroori hai.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 2, "intent": "relationship", "prompt": "My girlfriend is Neha.", "model_only_response": "Palic.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 3, "intent": "support", "prompt": "I had a rough day and feel low. Can we talk?", "model_only_response": "Teri se thoda a set-to-to-time question hain.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 4, "intent": "identity", "prompt": "What kind of model are you?", "model_only_response": "I'm there are trained on a small way of Open Assistant has to answer something helpful.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 5, "intent": "food", "prompt": "Samosa ke baare mein ek fun baat batao.", "model_only_response": "Eahai ki baat hai, sach mein financial jagah ke liye set.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 6, "intent": "food", "prompt": "Burger ya samosa, kya choose karoge?", "model_only_response": "Sam ko: hisse, kuch aur chahiyege, woh help kar sakta hai.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 7, "intent": "knowledge", "prompt": "Can you explain a compiler briefly?", "model_only_response": "I don't provide information on specific context.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 8, "intent": "debugging", "prompt": "Mera code baar baar crash hota hai. Kya check karun?", "model_only_response": "Bhai, agar jarese time pe hai toh check kar lena. Bas focus karne se pehle baat karke dekh pehle aur doctor se pooch le.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 9, "intent": "study", "prompt": "Padhai mein focus kaise badhaun?", "model_only_response": "Mera short term, logon koख़ों padega.", "decoding": "temperature_0.75_top_k_30"}
+{"id": 10, "intent": "roast", "prompt": "Roast my messy room in Hinglish.", "model_only_response": "Ho's house to the road, Turma is a way that is an early?", "decoding": "temperature_0.75_top_k_30"}
+{"id": 11, "intent": "identity", "prompt": "Tum mere saath bahar chaloge?", "model_only_response": "Tum, sab baat hai. Kya tumne hum mujhe pata nahi kya?", "decoding": "temperature_0.75_top_k_30"}
+{"id": 12, "intent": "dating", "prompt": "How do I politely ask someone on a date?", "model_only_response": "The amount of context the answer to your question is a small question, and \"Rest that you\".", "decoding": "temperature_0.75_top_k_30"}

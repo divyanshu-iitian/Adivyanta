@@ -79,6 +79,8 @@ An experimental [ChatMix v2 model checkpoint](https://huggingface.co/divyanshumi
 
 A later [focused chat continuation trial](benchmarks/CHAT_FOCUS_TRIAL.md) selected more self-contained examples and trained through step 18,000, but all four validation checks were worse than its starting checkpoint. That trial was stopped and was not released as an improved model. The app fixes for arithmetic wording, assistant identity, and explicitly stated relationship facts are separate from neural training.
 
+Two further [local improvement trials](benchmarks/MODEL_IMPROVEMENT_TRIALS.md) compared a heavily repeated 66-row dialogue seed against a seed-only specialization using new model-only prompts. The weighted trial slightly reduced ChatMix validation loss but did not make raw replies reliably coherent; seed-only training overfit and increased validation loss. Neither checkpoint replaces the default model or has been presented as a stronger Hugging Face release. The report includes raw outputs, test losses, scripts, and reproduction commands.
+
 The corpus includes some other Indian languages through Aya, but their sample counts are small. Hindi, Hinglish, and English are the main targets. The Aya shards include translated or templated examples, and the Hinglish dataset is synthetic; they are not equivalent to a large, carefully edited native conversation corpus. No Reddit posts were scraped. Dataset licenses permit broad reuse according to their cards; inspect the cards and provenance before using the model for a specific product.
 
 To reproduce on a CUDA machine:

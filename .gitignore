@@ -18,3 +18,8 @@ benchmarks/chatmix_math_interim.jsonl
 benchmarks/chatmix_math_interim.summary.json
 adivyanta_indic/chat_focus/best.pt
 adivyanta_indic/chat_focus/tokenizer.json
+adivyanta_indic/style_mix_v1/best.pt
+adivyanta_indic/style_mix_v1/tokenizer.json
+adivyanta_indic/persona_trial/best.pt
+adivyanta_indic/persona_trial/tokenizer.json
+adivyanta_indic/persona_trial/trial_step_*.pt

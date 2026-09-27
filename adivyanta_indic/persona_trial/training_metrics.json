@@ -1,0 +1,26 @@
+{
+  "parameters": 46349312,
+  "train_examples": 66,
+  "valid_examples": 974,
+  "device": "cuda",
+  "data_dir": "data\\persona_trial",
+  "init_checkpoint": "adivyanta_indic\\chatmix_v2_refined\\best.pt",
+  "relative_schedule": true,
+  "schedule_origin_step": 17000,
+  "schedule_target_step": 17500,
+  "initial_validation_loss": 2.8445,
+  "steps": [
+    {
+      "step": 17250,
+      "train_loss": 2.1476,
+      "validation_loss": 2.9449,
+      "elapsed_seconds": 33
+    },
+    {
+      "step": 17500,
+      "train_loss": 0.4144,
+      "validation_loss": 3.0375,
+      "elapsed_seconds": 68
+    }
+  ]
+}

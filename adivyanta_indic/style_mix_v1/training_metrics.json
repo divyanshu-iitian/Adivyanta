@@ -1,0 +1,52 @@
+{
+  "parameters": 46349312,
+  "train_examples": 112160,
+  "valid_examples": 974,
+  "device": "cuda",
+  "data_dir": "data\\style_mix_v1",
+  "init_checkpoint": "adivyanta_indic\\chatmix_v2_refined\\best.pt",
+  "relative_schedule": true,
+  "schedule_origin_step": 17000,
+  "schedule_target_step": 18500,
+  "initial_validation_loss": 2.8445,
+  "steps": [
+    {
+      "step": 17250,
+      "train_loss": 3.3495,
+      "validation_loss": 2.8475,
+      "elapsed_seconds": 52
+    },
+    {
+      "step": 17500,
+      "train_loss": 2.5052,
+      "validation_loss": 2.853,
+      "elapsed_seconds": 106
+    },
+    {
+      "step": 17750,
+      "train_loss": 2.1921,
+      "validation_loss": 2.8412,
+      "elapsed_seconds": 158
+    },
+    {
+      "step": 18000,
+      "train_loss": 2.4922,
+      "validation_loss": 2.8343,
+      "elapsed_seconds": 212
+    },
+    {
+      "step": 18250,
+      "train_loss": 2.4837,
+      "validation_loss": 2.8298,
+      "elapsed_seconds": 264
+    },
+    {
+      "step": 18500,
+      "train_loss": 2.3924,
+      "validation_loss": 2.8253,
+      "elapsed_seconds": 317
+    }
+  ],
+  "best_step": 18500,
+  "best_validation_loss": 2.8253
+}

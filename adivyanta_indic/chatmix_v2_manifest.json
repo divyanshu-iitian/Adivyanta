@@ -1,0 +1,96 @@
+{
+  "version": "2.0.0",
+  "selection": "Deterministic source quotas, prompt deduplication and length/quality filters",
+  "source_revision_oasst2": "179dd21fc55192153d94adb0e0ce8f69e222bf75",
+  "splits": {
+    "train": 92360,
+    "valid": 974,
+    "test": 964
+  },
+  "train_by_source": {
+    "aya_hindi": 13682,
+    "aya_hindi_extra": 25000,
+    "ultrachat": 16005,
+    "generated_math": 10000,
+    "oasst2": 3476,
+    "aya_human": 13051,
+    "gsm8k": 4808,
+    "hinglish": 3794,
+    "oasst": 2530,
+    "original": 14
+  },
+  "train_by_language": {
+    "hin": 42427,
+    "eng": 32011,
+    "guj": 440,
+    "hinglish": 7156,
+    "tam": 4668,
+    "pan": 1171,
+    "tel": 1932,
+    "mar": 1745,
+    "urd": 79,
+    "kan": 107,
+    "ben": 192,
+    "mal": 432
+  },
+  "candidate_counts": {
+    "aya_human": {
+      "seen": 25254,
+      "eligible": 13296
+    },
+    "aya_hindi": {
+      "seen": 46044,
+      "eligible": 13971
+    },
+    "aya_hindi_extra": {
+      "seen": 99937,
+      "eligible": 30298
+    },
+    "aya_english": {
+      "seen": 39797,
+      "eligible": 0
+    },
+    "oasst": {
+      "seen": 5914,
+      "eligible": 3980
+    },
+    "oasst2": {
+      "seen": 23932,
+      "eligible": 6969
+    },
+    "hinglish": {
+      "seen": 5780,
+      "eligible": 3863
+    },
+    "ultrachat": {
+      "seen": 29818,
+      "eligible": 16314
+    },
+    "gsm8k": {
+      "seen": 7244,
+      "eligible": 4905
+    },
+    "original": {
+      "seen": 15,
+      "eligible": 14
+    },
+    "generated_math": {
+      "seen": 12000,
+      "eligible": 12000
+    }
+  },
+  "license_by_source": {
+    "aya_human": "Apache-2.0",
+    "aya_hindi": "Apache-2.0",
+    "aya_hindi_extra": "Apache-2.0",
+    "aya_english": "Apache-2.0",
+    "oasst": "Apache-2.0",
+    "oasst2": "Apache-2.0",
+    "hinglish": "Apache-2.0",
+    "ultrachat": "MIT",
+    "gsm8k": "MIT",
+    "original": "MIT",
+    "generated_math": "MIT"
+  },
+  "previous_manifest": "adivyanta_indic/expanded_data_manifest.json"
+}

@@ -65,6 +65,8 @@ A second corpus build in [prepare_expanded_data.py](prepare_expanded_data.py) ad
 
 [DATASETS.md](DATASETS.md) records provenance, licenses, split handling, and the limits of this collection.
 
+A smaller, cleaner [Adivyanta ChatMix v2 dataset](https://huggingface.co/datasets/divyanshumishra/Adivyanta-ChatMix-v2) is now published separately. It is derived from the licensed sources above plus OASST2 and project-generated arithmetic, with 92,360 train / 974 validation / 964 test rows. Run `prepare_chatmix_v2.py` and `validate_chatmix_v2.py` to rebuild and check it. It is a filtered experiment, not a claim that every row is accurate.
+
 The corpus includes some other Indian languages through Aya, but their sample counts are small. Hindi, Hinglish, and English are the main targets. The Aya shards include translated or templated examples, and the Hinglish dataset is synthetic; they are not equivalent to a large, carefully edited native conversation corpus. No Reddit posts were scraped. Dataset licenses permit broad reuse according to their cards; inspect the cards and provenance before using the model for a specific product.
 
 To reproduce on a CUDA machine:
